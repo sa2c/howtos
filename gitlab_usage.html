@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-12 Mon 17:31 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SA2C GitLab usage</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Mark Dawson" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">SA2C GitLab usage</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2950231">1. Gitlab Usage</a>
+<ul>
+<li><a href="#org52bd993">1.1. Setting up Git</a></li>
+<li><a href="#org69859dd">1.2. Gitlab user registration</a></li>
+<li><a href="#org1e4e715">1.3. GitLab project access</a></li>
+<li><a href="#org3747e27">1.4. Granting user access (for repository master users)</a></li>
+<li><a href="#org717d5dd">1.5. Downloading the source code (the easy way)</a></li>
+<li><a href="#org3c4554d">1.6. Downloading the source code (the fast way)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<a href="../index.html">BACK TO HOW-TO LIST</a>
+</p>
+
+<div id="outline-container-org2950231" class="outline-2">
+<h2 id="org2950231"><span class="section-number-2">1</span> Gitlab Usage</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The following document describes steps necessary to use the <a href="https://sa2c-gitlab.swansea.ac.uk/">SA2C GitLab</a> to manage code on SCW infrastructure.
+</p>
+</div>
+
+<div id="outline-container-org52bd993" class="outline-3">
+<h3 id="org52bd993"><span class="section-number-3">1.1</span> Setting up Git</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Git can be used from the login nodes (e.g. ssl001) to pull code from the
+outside. Note however that in order to do this, a proxy connection should be
+used. Please ensure that you are running version 2.9.5 of git.
+</p>
+
+<p>
+Note: If you have previously installed git, and are using git 1.9.0, you will
+   need to remove any references that you have added to your profile files (.bashrc, .profile etc). 
+</p>
+
+<p>
+In order to have git available, log into a job submission node (e.g. ssl001) and
+   open the .bashrc file. You can do this on the command line by typing:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">nano ~/.bashrc
+</pre>
+</div>
+
+<p>
+At the end of the file, add the following lines:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">module load git/2.9.5
+<span style="color: #4f97d7;">export</span> <span style="color: #7590db;">https_proxy</span>=https://10.211.143.6:8080
+</pre>
+</div>
+
+<p>
+You will need to log out of the job submission node and back in again in order
+for these changes to take effect. You may now test your git setup. You can do
+this easily by listing the branches of a remote repository, for example SLURM,
+using the following command:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">git ls-remote -h https://github.com/SchedMD/slurm
+</pre>
+</div>
+
+<p>
+If unsuccessful this command will return an error message, such as:
+</p>
+
+<pre class="example">
+fatal: unable to access 'https://github.com/SchedMD/slurm/': Failed to connect to github.com port 443: No route to host
+</pre>
+
+<p>
+If you see a list of remote heads for the SLURM workload manager, the previous
+commands have been successful. Below is a sample output given today, note that
+exact output that you see will likely differ.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #a45bad;">59c02e4f984ac9a4eb648166b8744132f7238e63</span>  refs/heads/b4847
+<span style="color: #a45bad;">2fdf92d782d9920583ccfa2d6ad28b3ebd0b846b</span>  refs/heads/bug_4584
+bc22cda6dee857959e6f2107a10b3704c884fd81  refs/heads/cli_filter
+d04f3b0712f67667d2de91852863fd84bd7b3228  refs/heads/cray_pack
+<span style="color: #a45bad;">128be108d49c3389db4f3d0f342d3e09f9465c88</span>  refs/heads/dw_up06
+ec8c44e7175c864e994a16e575b7e0d23e692ff4  refs/heads/federation
+beda3baa537027ef77cfd43d65817b9735ab1998  refs/heads/fedlab
+a2ed2a0e1730edf56a4547ff920dfbdbcb3c7b27  refs/heads/influxdb
+<span style="color: #a45bad;">94f64c34d75714f6f0baa1d1aec8b1cb50ec5321</span>  refs/heads/loadleveler
+<span style="color: #a45bad;">9c812ab57bb4d4e79ee7e888420b83c0ce65c1f3</span>  refs/heads/master
+b3db0fc049f86a9e71355eb6d6982a228a0b2095  refs/heads/max_priority
+<span style="color: #a45bad;">451675e755b7c7fdcd322fedf93ab6b2ce0e15a3</span>  refs/heads/scontrol_json
+<span style="color: #a45bad;">6793b46de9c7a8780a2fe66cb6bc1dfa0fbbe625</span>  refs/heads/shmem_pmi
+acd6440b45254ceea87e606d2ca6b5df0cb86116  refs/heads/simulator
+<span style="color: #a45bad;">4876672c6b474c23e19c76d666101aa72b4e1562</span>  refs/heads/slurm-1.0
+bfc14bf3405c2386ce303fea08b67dd4778e3923  refs/heads/slurm-1.1
+<span style="color: #a45bad;">93d5dcb63f041b71e309c35a3221a92ee57335e7</span>  refs/heads/slurm-1.2
+<span style="color: #a45bad;">616fc7b3889fe0c2fb9b74bedbe647a9debd7f5a</span>  refs/heads/slurm-1.3
+bda0a436fe734303c0329055c004d4a5758dbc17  refs/heads/slurm-14.03
+<span style="color: #a45bad;">4109fcbfd71a8c5b0fffd284f35c55155f4fa513</span>  refs/heads/slurm-14.11
+b3107d89747875de42e2ca7c14ce1d5dd283c99a  refs/heads/slurm-15.08
+da4397efa315745930b15367f2956f79597c5b9d  refs/heads/slurm-16.05
+<span style="color: #a45bad;">252d0573a6cec490acee501903a3f0af6c5b1a84</span>  refs/heads/slurm-17.02
+<span style="color: #a45bad;">6d4518feb2578c21fab675f42b639eb02844c17f</span>  refs/heads/slurm-17.11
+bbdd07c1d8d667e1a3b387c10951058b2628af73  refs/heads/slurm-2.0
+<span style="color: #a45bad;">5a6f41e2b91347c6a34ba9c7ee6e6bfe2836454a</span>  refs/heads/slurm-2.1
+a0e6bbde1d9d8386aa729b5883f11530902fff08  refs/heads/slurm-2.2
+ff26cc50db9e2fe2f9745a16c8c59fd3e0bd7ae8  refs/heads/slurm-2.3
+<span style="color: #a45bad;">29c2661a4410a0621ddace5881122106f4cb2a11</span>  refs/heads/slurm-2.4
+<span style="color: #a45bad;">04f06338896c14e83a3d5fb0dec81c60d4aca071</span>  refs/heads/slurm-2.5
+<span style="color: #a45bad;">63332d41b3232a1c7ceda976992b8ca2a22dcc39</span>  refs/heads/slurm-2.6
+<span style="color: #a45bad;">594881bb4dbfbcc5868e36e8dc79ffc35d748a58</span>  refs/heads/step_alloc
+d856b526c7364b2b9bd0e0a5c15cc84d9e74edc6  refs/heads/tresbilling_test
+ff8d659cba6005f41c3cc45356593d5ab093c5fe  refs/heads/usage
+f153ac81b8e3c0c6553104bfa73041fc776675f3  refs/heads/xtconsumer
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org69859dd" class="outline-3">
+<h3 id="org69859dd"><span class="section-number-3">1.2</span> Gitlab user registration</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+In order to access code on our gitlab servers, you will need to create a
+user account, if you have done so already you may skip this section. Visit
+<a href="https://sa2c-gitlab.swansea.ac.uk">https://sa2c-gitlab.swansea.ac.uk</a>, and click the "Register" link, as shown in
+the image:
+</p>
+
+
+<div class="figure">
+<p><img src="./images/gitlab_login_page.png" alt="gitlab_login_page.png" width="100%" style="border: 1px solid black" />
+</p>
+<p><span class="figure-number">Figure 1: </span>GitLab sign in page</p>
+</div>
+
+
+<p>
+Complete your details, ensuring that you use your @swansea.ac.uk email address,
+and click Register.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1e4e715" class="outline-3">
+<h3 id="org1e4e715"><span class="section-number-3">1.3</span> GitLab project access</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+On first registration, you will not be able to see the code for any projects.
+Each project should have been assigned at least one user with "master" rights, who will in
+turn be able to add other users to the repository. The project
+owner may know the identity of the "master" user. If the identity is not known,
+or no master user has yet been assigned for this project, contact SA2C on
+<a href="https://sa2c-gitlab.swansea.ac.uk">https://sa2c-gitlab.swansea.ac.uk</a>. Note that master users are able to assign
+other master users for their repositories.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3747e27" class="outline-3">
+<h3 id="org3747e27"><span class="section-number-3">1.4</span> Granting user access (for repository master users)</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+This section contains instructions for users with "master" rights to a repository to
+grant repository access to other users. Users who are not a master user may skip
+this section.
+</p>
+
+<ul class="org-ul">
+<li>Browse to the project page (Projects -&gt; Your Projects -&gt; click on the project
+name).</li>
+<li>Click "Settings" and then "Members" on the left hand side sidebar</li>
+<li>Select the user under "Select members to invite"</li>
+<li>Choose an appropriate role (i.e. permission level) for the user and an
+expiration date if necessary. You may click the "Read more" link to learn more
+about available permissions.</li>
+<li>Click "Add to project" to allow the user repository access.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org717d5dd" class="outline-3">
+<h3 id="org717d5dd"><span class="section-number-3">1.5</span> Downloading the source code (the easy way)</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Once gitlab access is set up, you can download the source directly from our
+gitlab pages. The easiest way is to visit the project page and copy the URL
+project MyExampleProject, in the image below, this would be
+<a href="https://sa2c-gitlab.swansea.ac.uk/test.user/MyExampleProject">https://sa2c-gitlab.swansea.ac.uk/test.user/MyExampleProject</a>.
+</p>
+
+
+<div class="figure">
+<p><img src="./images/download_link.png" alt="download_link.png" width="100%" style="border: 1px solid black" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Project page</p>
+</div>
+
+<p>
+Now, on a job submission node (e.g. ssl001), you can download the source using:
+</p>
+
+<pre class="example">
+git clone https://sa2c-gitlab.swansea.ac.uk/test.user/MyExampleProject
+</pre>
+
+<p>
+You will be prompted for you username, which is the email address with which you
+signed up for GitLab, and your password. The source will be downloaded to a
+directory in the current working directory.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3c4554d" class="outline-3">
+<h3 id="org3c4554d"><span class="section-number-3">1.6</span> Downloading the source code (the fast way)</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+If you wish to avoid typing your username and password every time, authentication using
+ssh keys is also possible. In order to set this up, some additional steps are
+required. First, click on "Settings" in the user profile menu in the top right
+of your screen, as shown:
+</p>
+
+
+<div class="figure">
+<p><img src="./images/user_profile.png" alt="user_profile.png" style="border: 1px solid black" />
+</p>
+</div>
+
+
+<p>
+In the left hand sidebar, click "SSH Keys". Now need to grab the contents of
+your ssh key, available on the SCW cluster in the file
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">~/.ssh/id_rsa.pub.
+</pre>
+</div>
+<p>
+Copy the contents of the key into the "Key" field and give it a recognisable title.
+Click "Add key" to add the key. In order to clone, you will now need to select
+the SSH protocol in the protocol field:
+</p>
+
+
+<div class="figure">
+<p><img src="./images/ssh_protocol.png" alt="ssh_protocol.png" width="100%" style="border: 1px solid black" />
+</p>
+</div>
+
+<p>
+and copy the URL shown next to it. The git command for the previous repository
+would look something like:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git clone git@sa2c-gitlab.swansea.ac.uk:test.user/MyExampleProject.git
+</pre>
+</div>
+<p>
+Note the protocol should now begin with @git at the start of the URL.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Mark Dawson</p>
+<p class="date">Created: 2018-03-12 Mon 17:31</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
