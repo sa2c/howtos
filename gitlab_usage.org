@@ -123,7 +123,7 @@ this section.
   about available permissions.
 - Click "Add to project" to allow the user repository access.
 
-** Downloading the source code (the easy way)
+** Downloading the source code
 Once gitlab access is set up, you can download the source directly from our
 gitlab pages. The easiest way is to visit the project page and copy the URL
 project MyExampleProject, in the image below, this would be
@@ -143,32 +143,20 @@ You will be prompted for you username, which is the email address with which you
 signed up for GitLab, and your password. The source will be downloaded to a
 directory in the current working directory.
 
-** Downloading the source code (the fast way)
-If you wish to avoid typing your username and password every time, authentication using
-ssh keys is also possible. In order to set this up, some additional steps are
-required. First, click on "Settings" in the user profile menu in the top right
-of your screen, as shown:
-
-#+ATTR_HTML: :style border: 1px solid black
-[[./images/user_profile.png]]
-
-
-In the left hand sidebar, click "SSH Keys". Now need to grab the contents of
-your ssh key, available on the SCW cluster in the file
-
+** Avoid typing password repeatedly
+Only the https:// protocol is supported for git on Supercomputing Wales systems. This
+means that your machine will need to provide your username and password each time it
+tries to talk to our GitLab servers. Fortunately, git has a method for remembering
+passwords called "credential helpers". Documentation on this feature can be found at
+[[https://git-scm.com/docs/gitcredentials][https://git-scm.com/docs/gitcredentials]]. In order to enable this feature globally, you
+may use the following command:
 #+BEGIN_SRC sh
-   ~/.ssh/id_rsa.pub.
+git config --global credential.helper cache
 #+END_SRC
-Copy the contents of the key into the "Key" field and give it a recognisable title.
-Click "Add key" to add the key. In order to clone, you will now need to select
-the SSH protocol in the protocol field:
 
-#+ATTR_HTML: :width 100% :style border: 1px solid black
-[[./images/ssh_protocol.png]]
-
-and copy the URL shown next to it. The git command for the previous repository
-would look something like:
+Git will then remember your username and password for GitLab for 15 minutes for all repositories.
+This time interval can be increased using a command such as:
 #+BEGIN_SRC sh
-git clone git@sa2c-gitlab.swansea.ac.uk:test.user/MyExampleProject.git
+git config --global credential.helper "cache --timeout=3600"
 #+END_SRC
-Note the protocol should now begin with @git at the start of the URL.
+which will cause a timeout of 1 hour (3600 seconds).
